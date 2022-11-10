@@ -1,0 +1,49 @@
+---
+-
+  hosts: "{{ master_host }}"
+  name: "Installing mysql, creating database and users on {{ master_host }}"
+  vars:
+    customer: "{{ customer_name }}"
+    lob: "{{ lob_name }}"
+    db_port: "{{ port_num }}"
+    db_server_id: "1{{ port_num }}"
+    modes: "{{ modes_needed }}"
+    create_user:
+      app_user:
+        username: "{{ customer_name | lower }}{{ lob_name | lower }}appuser"
+        password: "{{ customer_name | lower }}{{ lob_name | lower }}appuser*1"
+        accessible_from: 10.100.%
+        access_to_provide: SELECT, INSERT, UPDATE, EXECUTE
+      rep_user:
+        username: dbreplicationuser
+        password: dbreplicationpass
+        accessible_from: 10.100.%
+        access_to_provide: REPLICATION SLAVE, REPLICATION CLIENT
+  roles: 
+    - role: mysql_installation
+    - role: database_creation
+    - role: dbuser_creation
+
+-
+  hosts: "{{ slave_host }}"
+  name: "Installing mysql, creating database on {{ slave_host }}"
+  vars:
+    customer: "{{ customer_name }}"
+    lob: "{{ lob_name }}"
+    db_port: "{{ port_num }}"
+    db_server_id: "2{{ port_num }}"
+    modes: "{{ modes_needed }}"
+    create_user:
+      rep_user:
+        username: dbreplicationuser
+        password: dbreplicationpass
+        accessible_from: 10.100.%
+        access_to_provide: REPLICATION SLAVE, REPLICATION CLIENT
+  roles: 
+    - role: mysql_installation
+    - role: database_creation
+    - role: dbuser_creation
+
+- import_playbook: mysql_replication.yml
+
+...

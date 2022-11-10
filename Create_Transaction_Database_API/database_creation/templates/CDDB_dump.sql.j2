@@ -1,0 +1,934 @@
+-- MySQL dump 10.13  Distrib 8.0.23, for Linux (x86_64)
+--
+-- Host: 10.100.16.51    Database: {{ item }}
+-- ------------------------------------------------------
+-- Server version	5.7.23-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `{{ item }}`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `{{ item }}` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `{{ item }}`;
+
+--
+-- Table structure for table `BUGZILA_RELEASE_STATUS_MANAGE`
+--
+
+DROP TABLE IF EXISTS `BUGZILA_RELEASE_STATUS_MANAGE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `BUGZILA_RELEASE_STATUS_MANAGE` (
+  `S_NO` int(40) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` int(40) NOT NULL,
+  `ENVIRONMENT` text NOT NULL,
+  `BUGZILA_STATUS` text NOT NULL,
+  `STARTED_DATE_TIME` datetime DEFAULT NULL,
+  `COMPLETED_DATE_TIME` datetime DEFAULT NULL,
+  `UPDATED_BY` text,
+  PRIMARY KEY (`S_NO`)
+) ENGINE=InnoDB AUTO_INCREMENT=13249 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `CNF_EVENT_URL_DETAILS`
+--
+
+DROP TABLE IF EXISTS `CNF_EVENT_URL_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `CNF_EVENT_URL_DETAILS` (
+  `URL_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(3) NOT NULL,
+  `INTEG_OWNER_ID` int(3) NOT NULL,
+  `CUSTOMER` varchar(50) NOT NULL,
+  `LOB` varchar(50) NOT NULL,
+  `DB_URL_ID` int(3) NOT NULL,
+  `DATABASE_NAME` varchar(100) NOT NULL,
+  `TABLE_NAME` varchar(100) NOT NULL,
+  `DESCRIPTION` varchar(100) NOT NULL,
+  `UCI_URL` varchar(100) NOT NULL,
+  `ALPHA_URL` varchar(100) NOT NULL,
+  `BETA_URL` varchar(100) NOT NULL,
+  `DEMO_URL` varchar(100) NOT NULL,
+  `RC_URL` varchar(100) NOT NULL,
+  `MOCK_URL` varchar(100) DEFAULT NULL,
+  `GA_URL` varchar(100) NOT NULL,
+  PRIMARY KEY (`URL_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DB_CONNECTION_DETAILS`
+--
+
+DROP TABLE IF EXISTS `DB_CONNECTION_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DB_CONNECTION_DETAILS` (
+  `CONNECTION_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(3) NOT NULL,
+  `CUSTOMER` varchar(100) NOT NULL,
+  `LOB` varchar(100) NOT NULL,
+  `ENVIRONMENT` varchar(12) NOT NULL,
+  `DB_TYPE` varchar(255) NOT NULL,
+  `DB_FOLDER_NAME` varchar(50) NOT NULL,
+  `IP` varchar(100) NOT NULL,
+  `PORT` int(5) NOT NULL,
+  `DB_NAME` varchar(100) NOT NULL,
+  `USERNAME` varchar(100) NOT NULL,
+  `PASSWORD` blob NOT NULL,
+  `ACTIVE` char(1) NOT NULL,
+  PRIMARY KEY (`CONNECTION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1063 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DOMAIN_DETAILS`
+--
+
+DROP TABLE IF EXISTS `DOMAIN_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DOMAIN_DETAILS` (
+  `DOMAIN_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `DOMAIN_NAME` varchar(50) NOT NULL,
+  `ENVIRONMENT` varchar(10) NOT NULL,
+  `DESCRIPTION` varchar(100) NOT NULL,
+  `TEST` varchar(10) NOT NULL,
+  PRIMARY KEY (`DOMAIN_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DOMAIN_DETAILS_2`
+--
+
+DROP TABLE IF EXISTS `DOMAIN_DETAILS_2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DOMAIN_DETAILS_2` (
+  `DOMAIN_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `DESCRIPTION` varchar(100) NOT NULL,
+  `UCI_DOMAIN_NAME` varchar(50) NOT NULL,
+  `ALPHA_DOMAIN_NAME` varchar(50) NOT NULL,
+  `BETA_DOMAIN_NAME` varchar(50) NOT NULL,
+  `RC_DOMAIN_NAME` varchar(50) NOT NULL,
+  `MOCK_DOMAIN_NAME` varchar(50) NOT NULL,
+  `GA_DOMAIN_NAME` varchar(50) NOT NULL,
+  PRIMARY KEY (`DOMAIN_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DOMAIN_MAPPING`
+--
+
+DROP TABLE IF EXISTS `DOMAIN_MAPPING`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DOMAIN_MAPPING` (
+  `DOMAIN_MAP_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `CUSTOMER` varchar(50) NOT NULL,
+  `LOB` varchar(50) NOT NULL,
+  `OWNER_ID` int(3) NOT NULL,
+  `INTEG_OWNER_ID` int(3) NOT NULL,
+  `UCI_DOMAIN_ID` int(3) NOT NULL,
+  `ENV_DOMAIN_ID` int(3) NOT NULL,
+  `ENVIRONMENT` varchar(10) NOT NULL,
+  PRIMARY KEY (`DOMAIN_MAP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DOMAIN_MAPPING_2`
+--
+
+DROP TABLE IF EXISTS `DOMAIN_MAPPING_2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DOMAIN_MAPPING_2` (
+  `DOMAIN_MAP_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `CUSTOMER` varchar(50) NOT NULL,
+  `LOB` varchar(50) NOT NULL,
+  `OWNER_ID` int(3) NOT NULL,
+  `INTEG_OWNER_ID` int(3) NOT NULL,
+  `DOMAIN_ID` int(3) NOT NULL,
+  PRIMARY KEY (`DOMAIN_MAP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DROOLS_INJECTION_STATUS`
+--
+
+DROP TABLE IF EXISTS `DROOLS_INJECTION_STATUS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DROOLS_INJECTION_STATUS` (
+  `STATUS_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(200) NOT NULL,
+  `OWNER_ID` char(200) NOT NULL,
+  `CUSTOMER` char(200) NOT NULL,
+  `LOB` char(200) NOT NULL,
+  `WAR_NAME` char(200) NOT NULL,
+  `CLOUD` char(200) NOT NULL,
+  `PACKAGE_DATE` datetime NOT NULL,
+  `ENVIRONMENT` char(200) NOT NULL,
+  `DCIPPORT` char(200) NOT NULL,
+  `HC_NAME` char(200) NOT NULL,
+  `SERVER_GROUP_NAME` char(200) NOT NULL,
+  `NODE_NAME` char(200) NOT NULL,
+  `EXISTING_STATUS` char(200) NOT NULL,
+  `WARNAME_DURING_DEPLOYMENT` char(200) NOT NULL,
+  `NODE_STOPPED_TIME` datetime DEFAULT NULL,
+  `NODE_STARTED_TIME` datetime DEFAULT NULL,
+  `STATUS_AFTER_RESTART` char(200) DEFAULT NULL,
+  `COMMENTS` char(200) DEFAULT NULL,
+  PRIMARY KEY (`STATUS_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DROOLS_JBOSS_DETAILS`
+--
+
+DROP TABLE IF EXISTS `DROOLS_JBOSS_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `DROOLS_JBOSS_DETAILS` (
+  `Joss_Details_Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Customer` varchar(50) NOT NULL,
+  `LOB` varchar(50) NOT NULL,
+  `Owner_Id` int(11) NOT NULL,
+  `DroolFolderName` varchar(20) NOT NULL,
+  `JbossURL` varchar(100) NOT NULL,
+  `JbossPort` int(11) NOT NULL,
+  `JbossUsername` varchar(20) NOT NULL,
+  `JbossPassword` blob NOT NULL,
+  `MachineIP` varchar(50) NOT NULL,
+  `MachineUsername` varchar(20) NOT NULL,
+  `MachinePassword` blob NOT NULL,
+  `Environment` varchar(20) NOT NULL,
+  `Cloud` varchar(20) NOT NULL,
+  `DroolName` varchar(100) NOT NULL,
+  `Active` char(1) NOT NULL,
+  PRIMARY KEY (`Joss_Details_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ENVIRONMENT_BLOCKING`
+--
+
+DROP TABLE IF EXISTS `ENVIRONMENT_BLOCKING`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ENVIRONMENT_BLOCKING` (
+  `S.NO` int(11) NOT NULL AUTO_INCREMENT,
+  `CUSTOMER` char(100) NOT NULL,
+  `LOB` char(100) NOT NULL,
+  `OWNER_ID` int(11) NOT NULL,
+  `ENVIRONMENT` char(255) NOT NULL,
+  `IS_BLOCKED` enum('Y','N') NOT NULL,
+  `BLOCKED_DATE` datetime DEFAULT NULL,
+  `BLOCKED_BY` char(100) DEFAULT NULL,
+  `BLOCKED_COMMENTS` char(100) DEFAULT NULL,
+  `ENABLED_DATE` datetime DEFAULT NULL,
+  `ENABLED_BY` char(100) DEFAULT NULL,
+  `ENABLED_COMMENTS` char(100) DEFAULT NULL,
+  PRIMARY KEY (`S.NO`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ENVIRONMENT_CONFIG_ALPHA`
+--
+
+DROP TABLE IF EXISTS `ENVIRONMENT_CONFIG_ALPHA`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ENVIRONMENT_CONFIG_ALPHA` (
+  `CNF_SERVER_GROUP_ID` int(5) NOT NULL AUTO_INCREMENT,
+  `SERVER_GROUP` varchar(40) NOT NULL,
+  `DC_IP_PORT` varchar(40) NOT NULL,
+  `HC1_NAME` varchar(30) NOT NULL,
+  `HC2_NAME` varchar(30) NOT NULL,
+  `HC1_NODE1_1` varchar(30) NOT NULL,
+  `HC1_NODE1_2` varchar(30) NOT NULL,
+  `HC2_NODE2_1` varchar(30) NOT NULL,
+  `HC2_NODE2_2` varchar(30) NOT NULL,
+  `USER_NAME` varchar(40) NOT NULL,
+  `PASSWORD` varchar(40) NOT NULL,
+  `CREATED_BY` varchar(100) NOT NULL,
+  `CREATED_DATE` datetime NOT NULL,
+  `UPDATED_BY` varchar(100) NOT NULL,
+  `UPDATED_DATE` datetime NOT NULL,
+  PRIMARY KEY (`CNF_SERVER_GROUP_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=10812 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ENVIRONMENT_CONFIG_BETA`
+--
+
+DROP TABLE IF EXISTS `ENVIRONMENT_CONFIG_BETA`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ENVIRONMENT_CONFIG_BETA` (
+  `CNF_SERVER_GROUP_ID` int(5) NOT NULL,
+  `SERVER_GROUP` varchar(40) NOT NULL,
+  `DC_IP_PORT` varchar(40) NOT NULL,
+  `HC1_NAME` varchar(30) NOT NULL,
+  `HC2_NAME` varchar(30) NOT NULL,
+  `HC1_NODE1_1` varchar(30) NOT NULL,
+  `HC1_NODE1_2` varchar(30) NOT NULL,
+  `HC2_NODE2_1` varchar(30) NOT NULL,
+  `HC2_NODE2_2` varchar(30) NOT NULL,
+  `USER_NAME` varchar(40) NOT NULL,
+  `PASSWORD` varchar(40) NOT NULL,
+  `CREATED_BY` varchar(100) NOT NULL,
+  `CREATED_DATE` datetime NOT NULL,
+  `UPDATED_BY` varchar(100) NOT NULL,
+  `UPDATED_DATE` datetime NOT NULL,
+  PRIMARY KEY (`CNF_SERVER_GROUP_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ENVIRONMENT_CONFIG_RC`
+--
+
+DROP TABLE IF EXISTS `ENVIRONMENT_CONFIG_RC`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ENVIRONMENT_CONFIG_RC` (
+  `CNF_SERVER_GROUP_ID` int(5) NOT NULL,
+  `SERVER_GROUP` varchar(40) NOT NULL,
+  `DC_IP_PORT` varchar(40) NOT NULL,
+  `HC1_NAME` varchar(30) NOT NULL,
+  `HC2_NAME` varchar(30) NOT NULL,
+  `HC1_NODE1_1` varchar(30) NOT NULL,
+  `HC1_NODE1_2` varchar(30) NOT NULL,
+  `HC2_NODE2_1` varchar(30) NOT NULL,
+  `HC2_NODE2_2` varchar(30) NOT NULL,
+  `USER_NAME` varchar(40) NOT NULL,
+  `PASSWORD` varchar(40) NOT NULL,
+  `CREATED_BY` varchar(100) NOT NULL,
+  `CREATED_DATE` datetime NOT NULL,
+  `UPDATED_BY` varchar(100) NOT NULL,
+  `UPDATED_DATE` datetime NOT NULL,
+  PRIMARY KEY (`CNF_SERVER_GROUP_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ENVIRONMENT_SPECIFIC_RELEASE_PROGRESS`
+--
+
+DROP TABLE IF EXISTS `ENVIRONMENT_SPECIFIC_RELEASE_PROGRESS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ENVIRONMENT_SPECIFIC_RELEASE_PROGRESS` (
+  `PROCESS_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(100) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `CUSTOMER` varchar(30) NOT NULL,
+  `LOB` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  `TIER` varchar(40) NOT NULL,
+  `MODULE` varchar(40) NOT NULL,
+  `UPDATED_DATE` char(50) NOT NULL,
+  `REPO_UPDATED_BY` varchar(50) DEFAULT NULL,
+  `TRIGGERED_BY` varchar(40) NOT NULL,
+  `PACKAGING_TYPE` enum('Packaging and Environment Specific files','Pure Environment Specific files') NOT NULL,
+  PRIMARY KEY (`PROCESS_ID`),
+  KEY `RELEASE_VERSION` (`RELEASE_VERSION`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=15162 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ENV_VARIABLE_UPDATE`
+--
+
+DROP TABLE IF EXISTS `ENV_VARIABLE_UPDATE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ENV_VARIABLE_UPDATE` (
+  `ENV_VARIABLE_UPDATE_ID` int(100) NOT NULL AUTO_INCREMENT,
+  `MODE` varchar(20) NOT NULL,
+  `OWNER_ID` varchar(20) NOT NULL,
+  `ATTRIBUTE_NAME` varchar(100) NOT NULL,
+  `UCI` text,
+  `Alpha` text,
+  `Beta` text,
+  `RC` text,
+  `MOCK` text,
+  `GA` text,
+  `ACTIVE` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`ENV_VARIABLE_UPDATE_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=627 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `GA_CONFIGURATION`
+--
+
+DROP TABLE IF EXISTS `GA_CONFIGURATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `GA_CONFIGURATION` (
+  `KeysName` varchar(50) NOT NULL,
+  `Value` varchar(100) NOT NULL,
+  PRIMARY KEY (`KeysName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `GOT_PROGRESS_STATUS`
+--
+
+DROP TABLE IF EXISTS `GOT_PROGRESS_STATUS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `GOT_PROGRESS_STATUS` (
+  `S.NO` int(11) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(11) NOT NULL,
+  `CUSTOMER` char(50) NOT NULL,
+  `LOB` char(50) NOT NULL,
+  `ENVIRONMENT` char(50) NOT NULL,
+  `GOT_DESCRIPTION` char(100) NOT NULL,
+  `RELEASE_NUMBERS` text NOT NULL,
+  `SUCCESS_RELEASES` text NOT NULL,
+  `FAILED_RELEASES` text NOT NULL,
+  `STATUS` char(100) NOT NULL,
+  `START_DATE` datetime NOT NULL,
+  `END_DATE` datetime NOT NULL,
+  `PROD_HOUR_STATUS` char(100) DEFAULT NULL,
+  `NODE_RESTART_STATUS` varchar(45) DEFAULT NULL,
+  `WEB_DEPLOYMENT_STATUS` varchar(45) DEFAULT NULL,
+  `MOCK_RELEASE_STATUS` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`S.NO`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `JENKINS_BUILD_STATUS`
+--
+
+DROP TABLE IF EXISTS `JENKINS_BUILD_STATUS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `JENKINS_BUILD_STATUS` (
+  `BUILD_STATUS_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(11) NOT NULL,
+  `LOB` char(255) NOT NULL,
+  `RELEASE_VERSION` char(255) NOT NULL,
+  `RELEASE_VERSION_NAME` text NOT NULL,
+  `JENKINS_BUILD_NUMBER` decimal(10,0) NOT NULL,
+  `PIPELINE_NAME` text NOT NULL,
+  `STAGE_PROGRESS` text NOT NULL,
+  `TRIGGERED_BY` text NOT NULL,
+  `ROLE` text NOT NULL,
+  `TRIGGERED_TIME` datetime NOT NULL,
+  PRIMARY KEY (`BUILD_STATUS_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=43611 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `JENKINS_CD_GROUP_DETAILS`
+--
+
+DROP TABLE IF EXISTS `JENKINS_CD_GROUP_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `JENKINS_CD_GROUP_DETAILS` (
+  `GROUP_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `GROUP_NAME` varchar(50) NOT NULL,
+  `DETAILED_NAME` varchar(60) NOT NULL,
+  PRIMARY KEY (`GROUP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=308 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `JENKINS_CD_USER_DETAILS`
+--
+
+DROP TABLE IF EXISTS `JENKINS_CD_USER_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `JENKINS_CD_USER_DETAILS` (
+  `USER_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `USER_NAME` char(40) NOT NULL,
+  `MAIL_ID` char(50) NOT NULL,
+  `FULL_NAME` char(50) NOT NULL,
+  `API_TOKEN` char(100) DEFAULT NULL,
+  `ACTIVE` char(10) DEFAULT NULL,
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `JENKINS_CD_USER_GROUP_DETAILS`
+--
+
+DROP TABLE IF EXISTS `JENKINS_CD_USER_GROUP_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `JENKINS_CD_USER_GROUP_DETAILS` (
+  `USR_GROUP_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `USER_ID` int(11) NOT NULL,
+  `GROUP_ID` int(11) NOT NULL,
+  PRIMARY KEY (`USR_GROUP_ID`),
+  KEY `USER_ID` (`USER_ID`),
+  KEY `GROUP_ID` (`GROUP_ID`),
+  CONSTRAINT `JENKINS_CD_USER_GROUP_DETAILS_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `JENKINS_CD_USER_DETAILS` (`USER_ID`),
+  CONSTRAINT `JENKINS_CD_USER_GROUP_DETAILS_ibfk_2` FOREIGN KEY (`GROUP_ID`) REFERENCES `JENKINS_CD_GROUP_DETAILS` (`GROUP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1677 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KB_EAP_DETAILS`
+--
+
+DROP TABLE IF EXISTS `KB_EAP_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `KB_EAP_DETAILS` (
+  `KB_EAP_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ENVIRONMENT` char(50) NOT NULL,
+  `CLOUD` char(50) NOT NULL,
+  `IP_PORT` char(100) NOT NULL,
+  `USERNAME` char(100) NOT NULL,
+  `PASSWORD` blob NOT NULL,
+  PRIMARY KEY (`KB_EAP_ID`),
+  KEY `ENVIRONMENT` (`ENVIRONMENT`),
+  KEY `CLOUD` (`CLOUD`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KB_HC_DETAILS`
+--
+
+DROP TABLE IF EXISTS `KB_HC_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `KB_HC_DETAILS` (
+  `HC_ID` int(20) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(20) NOT NULL,
+  `HC_NAME` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  PRIMARY KEY (`HC_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KB_NODE_DETAILS`
+--
+
+DROP TABLE IF EXISTS `KB_NODE_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `KB_NODE_DETAILS` (
+  `NODE_ID` int(20) NOT NULL,
+  `S_ID` int(20) NOT NULL,
+  `HC_ID` int(20) NOT NULL,
+  `NODE_NAME` varchar(50) NOT NULL,
+  PRIMARY KEY (`NODE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KB_RESTART_STATUS`
+--
+
+DROP TABLE IF EXISTS `KB_RESTART_STATUS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `KB_RESTART_STATUS` (
+  `STATUS_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(200) NOT NULL,
+  `OWNER_ID` char(200) NOT NULL,
+  `CUSTOMER` char(200) NOT NULL,
+  `LOB` char(200) NOT NULL,
+  `PACKAGE_DATE` datetime NOT NULL,
+  `ENVIRONMENT` char(200) NOT NULL,
+  `DCIPPORT` char(200) NOT NULL,
+  `USER_NAME` char(200) NOT NULL,
+  `PASSWORD` blob NOT NULL,
+  `HC_NAME` char(200) NOT NULL,
+  `SERVER_GROUP_NAME` char(200) NOT NULL,
+  `NODE_NAME` char(200) NOT NULL,
+  `ACTIVE` enum('Y','D') NOT NULL,
+  `EXISTING_STATUS` char(200) NOT NULL,
+  `RESTART_START_TIME` datetime DEFAULT NULL,
+  `RESTART_END_TIME` datetime DEFAULT NULL,
+  `STATUS_AFTER_RESTART` char(200) NOT NULL,
+  `RESTART_STATUS` char(100) NOT NULL,
+  `COMMENTS` char(200) NOT NULL,
+  PRIMARY KEY (`STATUS_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1198 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KB_SERVER_CONFIG_DETAILS`
+--
+
+DROP TABLE IF EXISTS `KB_SERVER_CONFIG_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `KB_SERVER_CONFIG_DETAILS` (
+  `S_NO` int(20) NOT NULL,
+  `CNF_SERVER_ID` int(20) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `ENVIRONMENT` varchar(10) NOT NULL,
+  `DC_IP_PORT` varchar(30) NOT NULL,
+  `USER_NAME` varchar(20) NOT NULL,
+  `PASSWORD` varchar(20) NOT NULL,
+  `CREATED_BY` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`S_NO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `KB_SERVER_DETAILS`
+--
+
+DROP TABLE IF EXISTS `KB_SERVER_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `KB_SERVER_DETAILS` (
+  `S_ID` int(20) NOT NULL,
+  `CNF_SERVER_ID` int(20) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `SERVER_NAME` varchar(20) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  `STATUS` varchar(255) NOT NULL,
+  PRIMARY KEY (`S_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `MOCK_RELEASE_STATUS`
+--
+
+DROP TABLE IF EXISTS `MOCK_RELEASE_STATUS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `MOCK_RELEASE_STATUS` (
+  `PROCESS_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(100) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `CUSTOMER` varchar(30) NOT NULL,
+  `LOB` varchar(30) NOT NULL,
+  `STATUS` varchar(40) NOT NULL,
+  `COMMENTS` text NOT NULL,
+  PRIMARY KEY (`PROCESS_ID`),
+  KEY `RELEASE_VERSION` (`RELEASE_VERSION`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `MOCK_WEB_DC_DETAILS`
+--
+
+DROP TABLE IF EXISTS `MOCK_WEB_DC_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `MOCK_WEB_DC_DETAILS` (
+  `S_NO` int(5) NOT NULL,
+  `OWNER_ID` int(3) NOT NULL,
+  `CUSTOMER` varchar(100) NOT NULL,
+  `LOB` varchar(100) NOT NULL,
+  `DC_ROOTPATH` varchar(100) NOT NULL,
+  `DC_MACHINEIP` varchar(100) NOT NULL,
+  `USERNAME` varchar(100) NOT NULL,
+  `WEBMODULE_VERSION` varchar(100) NOT NULL,
+  PRIMARY KEY (`S_NO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `OWNER_EAP_MAPPING`
+--
+
+DROP TABLE IF EXISTS `OWNER_EAP_MAPPING`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `OWNER_EAP_MAPPING` (
+  `MAP_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `KB_EAP_ID` int(11) NOT NULL,
+  `CNF_SERVER_GROUP_ID` int(11) NOT NULL,
+  `ENVIRONMENT` char(50) NOT NULL,
+  `CLOUD` char(50) NOT NULL,
+  `HC_NAME` char(50) NOT NULL,
+  `SERVER_GROUP_NAME` char(100) NOT NULL,
+  `NODE_NAME` char(100) NOT NULL,
+  `CUSTOMERS_USING` char(200) NOT NULL,
+  `DROOLS_WARNAME` char(200) NOT NULL,
+  `DB_NAME` varchar(100) NOT NULL,
+  `LOG_PATH` varchar(200) DEFAULT '',
+  `LOG_LIMIT` int(3) NOT NULL,
+  `ACTIVE` enum('Y','D') NOT NULL,
+  PRIMARY KEY (`MAP_ID`,`NODE_NAME`,`ENVIRONMENT`),
+  KEY `ENVIRONMENT` (`ENVIRONMENT`),
+  KEY `CLOUD` (`CLOUD`),
+  KEY `HC_NAME` (`HC_NAME`),
+  KEY `KB_EAP_ID` (`KB_EAP_ID`),
+  CONSTRAINT `OWNER_EAP_MAPPING_ibfk_1` FOREIGN KEY (`CLOUD`) REFERENCES `KB_EAP_DETAILS` (`CLOUD`),
+  CONSTRAINT `OWNER_EAP_MAPPING_ibfk_2` FOREIGN KEY (`ENVIRONMENT`) REFERENCES `KB_EAP_DETAILS` (`ENVIRONMENT`),
+  CONSTRAINT `OWNER_EAP_MAPPING_ibfk_3` FOREIGN KEY (`KB_EAP_ID`) REFERENCES `KB_EAP_DETAILS` (`KB_EAP_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=650 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RC_CONFIGURATION`
+--
+
+DROP TABLE IF EXISTS `RC_CONFIGURATION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `RC_CONFIGURATION` (
+  `KeysName` varchar(50) NOT NULL,
+  `Value` varchar(100) NOT NULL,
+  PRIMARY KEY (`KeysName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RELEASE_DEPENDENCY_PROGRESS`
+--
+
+DROP TABLE IF EXISTS `RELEASE_DEPENDENCY_PROGRESS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `RELEASE_DEPENDENCY_PROGRESS` (
+  `PROCESS_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(100) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `CUSTOMER_LOB` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  `DEPENDENT_TICKET` varchar(500) NOT NULL,
+  `COMMENTS` text NOT NULL,
+  PRIMARY KEY (`PROCESS_ID`),
+  KEY `RELEASE_VERSION` (`RELEASE_VERSION`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RELEASE_PROGRESS_V4`
+--
+
+DROP TABLE IF EXISTS `RELEASE_PROGRESS_V4`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `RELEASE_PROGRESS_V4` (
+  `PROCESS_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(100) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `LOB` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  `TIER` varchar(40) NOT NULL,
+  `MODULE` char(30) NOT NULL,
+  `TASKS` varchar(40) NOT NULL,
+  `EXECUTION_ORDER` int(11) DEFAULT NULL,
+  `PACKAGE_DATE` char(50) NOT NULL,
+  `STARTDATE` datetime NOT NULL,
+  `ENDDATE` datetime NOT NULL,
+  `STATUS` varchar(40) NOT NULL,
+  `COMMENTS` text NOT NULL,
+  PRIMARY KEY (`PROCESS_ID`),
+  KEY `RELEASE_VERSION` (`RELEASE_VERSION`)
+) ENGINE=MyISAM AUTO_INCREMENT=120305 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `RELEASE_PROGRESS_V4_BACKUP`
+--
+
+DROP TABLE IF EXISTS `RELEASE_PROGRESS_V4_BACKUP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `RELEASE_PROGRESS_V4_BACKUP` (
+  `PROCESS_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `RELEASE_VERSION` char(100) NOT NULL,
+  `OWNER_ID` int(20) NOT NULL,
+  `LOB` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  `TIER` varchar(40) NOT NULL,
+  `MODULE` char(30) NOT NULL,
+  `TASKS` varchar(40) NOT NULL,
+  `EXECUTION_ORDER` int(11) DEFAULT NULL,
+  `PACKAGE_DATE` char(50) NOT NULL,
+  `STARTDATE` char(30) DEFAULT NULL,
+  `ENDDATE` char(30) DEFAULT NULL,
+  `STATUS` varchar(40) NOT NULL,
+  `COMMENTS` text NOT NULL,
+  PRIMARY KEY (`PROCESS_ID`),
+  KEY `RELEASE_VERSION` (`RELEASE_VERSION`)
+) ENGINE=MyISAM AUTO_INCREMENT=67424 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `REPORT_CONNECTION_DETAILS`
+--
+
+DROP TABLE IF EXISTS `REPORT_CONNECTION_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `REPORT_CONNECTION_DETAILS` (
+  `CONNECTION_ID` int(3) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(3) NOT NULL,
+  `CUSTOMER` varchar(100) NOT NULL,
+  `LOB` varchar(100) NOT NULL,
+  `ENVIRONMENT` varchar(12) NOT NULL,
+  `IP` varchar(100) NOT NULL,
+  `PORT` int(5) NOT NULL,
+  `DB_NAME` varchar(100) NOT NULL,
+  `SERVER_NAME` varchar(5) NOT NULL,
+  `USERNAME` varchar(100) NOT NULL,
+  `PASSWORD` blob NOT NULL,
+  PRIMARY KEY (`CONNECTION_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `WEB_BACKUP_DETAILS`
+--
+
+DROP TABLE IF EXISTS `WEB_BACKUP_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `WEB_BACKUP_DETAILS` (
+  `S_NO` int(3) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` int(3) NOT NULL,
+  `CUSTOMER` varchar(100) NOT NULL,
+  `LOB` varchar(100) NOT NULL,
+  `ENVIRONMENT` varchar(12) NOT NULL,
+  `JBOSS_DC_IP_PORT` varchar(100) NOT NULL,
+  `JBOSS_MANAGEMENT_CONSOLE` varchar(100) NOT NULL,
+  `JBOSS_CONSOLE_USERNAME` varchar(100) NOT NULL,
+  `JBOSS_CONSOLE_PASSWORD` blob NOT NULL,
+  `WAR_FILE_NAME` varchar(50) NOT NULL,
+  `JBOSS_DC_MACHINE_IP` varchar(100) NOT NULL,
+  `JBOSS_DC_MACHINE_USERNAME` varchar(100) NOT NULL,
+  `JBOSS_DC_MACHINE_PASSWORD` blob NOT NULL,
+  `JBOSS_DC_HOME_PATH` varchar(255) NOT NULL,
+  `DEPLOYMENT_TYPE` varchar(50) NOT NULL,
+  PRIMARY KEY (`S_NO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `WEB_DC_DETAILS`
+--
+
+DROP TABLE IF EXISTS `WEB_DC_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `WEB_DC_DETAILS` (
+  `S_NO` int(5) NOT NULL,
+  `OWNER_ID` int(3) NOT NULL,
+  `CUSTOMER` varchar(100) NOT NULL,
+  `LOB` varchar(100) NOT NULL,
+  `DC_ROOTPATH` varchar(100) NOT NULL,
+  `DC_MACHINEIP` varchar(100) NOT NULL,
+  `USERNAME` varchar(100) NOT NULL,
+  `WEBMODULE_VERSION` varchar(100) NOT NULL,
+  `ENVIRONMENT` varchar(100) NOT NULL,
+  PRIMARY KEY (`S_NO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `WEB_HC_DETAILS`
+--
+
+DROP TABLE IF EXISTS `WEB_HC_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `WEB_HC_DETAILS` (
+  `HC_ID` int(20) NOT NULL,
+  `HC_NAME` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  PRIMARY KEY (`HC_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `WEB_NODE_DETAILS`
+--
+
+DROP TABLE IF EXISTS `WEB_NODE_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `WEB_NODE_DETAILS` (
+  `NODE_ID` int(20) NOT NULL,
+  `S_ID` int(20) NOT NULL,
+  `HC_ID` int(20) NOT NULL,
+  `NODE_NAME` varchar(30) NOT NULL,
+  PRIMARY KEY (`NODE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `WEB_SERVER_CONFIG_DETAILS`
+--
+
+DROP TABLE IF EXISTS `WEB_SERVER_CONFIG_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `WEB_SERVER_CONFIG_DETAILS` (
+  `S_NO` int(5) NOT NULL,
+  `OWNER_ID` int(5) NOT NULL,
+  `LOB` varchar(30) NOT NULL,
+  `ENVIRONMENT` varchar(10) NOT NULL,
+  `DC_IP_PORT` varchar(30) NOT NULL,
+  `USER_NAME` varchar(20) NOT NULL,
+  `PASSWORD` varchar(20) NOT NULL,
+  `CREATED_BY` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`S_NO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `WEB_SERVER_DETAILS`
+--
+
+DROP TABLE IF EXISTS `WEB_SERVER_DETAILS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `WEB_SERVER_DETAILS` (
+  `S_ID` int(5) NOT NULL,
+  `OWNER_ID` int(5) NOT NULL,
+  `LOB` varchar(255) NOT NULL,
+  `SERVER_NAME` varchar(20) NOT NULL,
+  `ENVIRONMENT` varchar(30) NOT NULL,
+  `STATUS` varchar(255) NOT NULL,
+  PRIMARY KEY (`S_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-10-27 19:30:44

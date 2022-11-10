@@ -1,0 +1,39 @@
+- name: 'Taking No data dump from source DB'
+  shell: "mysqldump -u {{ src_db_user }} -p{{ src_db_pwd }} -h {{ src_ip }} -P {{ src_port }} --column-statistics=0 --no-data --skip-triggers --databases {{ src_db }} > {{ remote_path }}/{{ src_db }}_dump.sql.j2"
+  delegate_to: localhost
+
+- name: 'Modifying dump to create template'
+  replace:
+    path: "{{ remote_path }}/{{ src_db }}_dump.sql.j2"
+    regexp: "{{ src_db }}"
+    replace: "{{ '{{' }} item {{ '}}' }}"
+  delegate_to: localhost
+
+- name: 'Copying dump to DB server'
+  template:
+    src: "{{ src_db }}_dump.sql.j2"
+    dest: "{{ src_dump_path }}/{{ item }}_dump.sql"
+  with_items:
+    - "{{ customer | lower }}{{ lob | lower }}{{ mode | lower }}db"
+
+- name: 'Restoring No data dump'
+  shell: "{{ mysql_root_path }}/base/{{ customer }}_{{ lob }}_{{ db_port }}/bin/mysql -u root -p'{{ db_root_password }}' -S {{ mysql_root_path }}/base/{{ customer }}_{{ lob }}_{{ db_port }}/mysql.sock < {{ src_dump_path }}/{{ item }}_dump.sql"
+  with_items:
+    - "{{ customer | lower }}{{ lob | lower }}{{ mode | lower }}db"
+
+- name: 'Logging DB details'
+  shell: "mysql -u {{ provdb_user }} -h {{ provdb_ip }} -P {{ provdb_port }} -p'{{ provdb_pwd }}' -D {{ provdb_name }} -e \"INSERT INTO LOG_DB_DETAIL (CUSTOMER, LOB, ENVIRONMENT, DB_VERSION, MODES, DB_IP, DB_PORT, DB_NAME, DB_TYPE, CREATED_DATE) VALUES ('{{ customer }}', '{{ lob }}', '{{ prov_env }}', '5.7', '{{ mode }}', '{{ ansible_host }}', '{{ db_port }}', '{{ item }}', '{{ inventory_hostname_short }}', NOW());\""
+  with_items:
+    - "{{ customer | lower }}{{ lob | lower }}{{ mode | lower }}db"
+  delegate_to: localhost
+
+- name: 'Notifying Infra team about DB creation'
+  mail:
+    host: localhost
+    port: 25
+    to: karthickraja_m@solartis.com
+    subject: "New DB created for Customer {{ customer }} {{ lob }} using Provisioning API"
+    body: 'IP: "{{ ansible_host }}" Port: "{{ db_port }}" DB: "{{ item }}" Type: "{{ inventory_hostname_short }}"'
+  with_items:
+    - "{{ customer | lower }}{{ lob | lower }}{{ mode | lower }}db"
+  delegate_to: localhost

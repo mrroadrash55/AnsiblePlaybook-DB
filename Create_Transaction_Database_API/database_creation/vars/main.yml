@@ -1,0 +1,16 @@
+---
+src_ip: 10.100.16.51
+src_port: 3400
+src_db_user: ansibleuser
+src_db_pwd: ansibleuser*1
+src_db: CDDB
+src_dump_path: "{{ ansible_env.HOME }}"
+remote_path: "{{ playbook_dir }}/database_creation/templates/"
+mysql_root_path: /opt/mysql-5.7.9
+db_root_password: redhat
+provdb_ip: 10.100.16.51
+provdb_port: 3400
+provdb_user: relusr
+provdb_pwd: relusr*1
+provdb_name: provisioningdb
+prov_env: POC

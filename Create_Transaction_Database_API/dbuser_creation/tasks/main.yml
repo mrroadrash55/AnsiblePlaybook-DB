@@ -1,0 +1,3 @@
+- name: 'Create user and grant access'
+  shell: "{{ mysql_root_path }}/base/{{ customer }}_{{ lob }}_{{ db_port }}/bin/mysql -u root -p'{{ db_root_password }}' -S {{ mysql_root_path }}/base/{{ customer }}_{{ lob }}_{{ db_port }}/mysql.sock -e \"CREATE USER '{{ item.value.username }}'@'{{ item.value.accessible_from }}' IDENTIFIED BY '{{ item.value.password }}'; GRANT {{ item.value.access_to_provide }} ON *.* TO '{{ item.value.username }}'@'{{ item.value.accessible_from }}'; FLUSH PRIVILEGES;\""
+  loop: "{{ lookup('dict', create_user, wantlist=True) }}"

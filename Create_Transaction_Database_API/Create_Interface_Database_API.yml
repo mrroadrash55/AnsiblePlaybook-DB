@@ -1,0 +1,17 @@
+---
+-
+  hosts: "{{ slave_host }}"
+  name: "Installing mysql, creating database on {{ slave_host }}"
+  vars:
+    customer: "{{ customer_name }}"
+    lob: "{{ lob_name }}"
+    db_port: "{{ port_num }}"
+    db_server_id: "3{{ port_num }}"
+    modes: "{{ modes_needed }}"
+  roles: 
+    - role: mysql_installation
+    - role: database_creation
+
+- import_playbook: mysql_replication.yml
+
+...

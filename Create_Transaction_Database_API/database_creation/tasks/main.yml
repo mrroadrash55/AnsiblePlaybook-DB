@@ -1,0 +1,5 @@
+- name: 'Create DB for input modes'
+  include_tasks: createdb.yml
+  loop: "{{ modes.split(',') }}"
+  loop_control:
+    loop_var: mode
