@@ -1,0 +1,47 @@
+---
+-
+  hosts: "{{ target_host }}"
+  name: "Deleting Database instance in {{ target_host }}"
+  vars:
+    mysql_root_path: /opt/mysql-5.7.9
+    provdb_ip: 10.100.16.51
+    provdb_port: 3400
+    provdb_user: relusr
+    provdb_pwd: relusr*1
+    provdb_name: provisioningdb
+    prov_env: POC
+  tasks:
+    - name: "Stopping Service - {{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+      systemd:
+        name: "{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+        state: stopped
+        enabled: no
+      become: yes
+
+    - name: "Deleting Service File - {{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+      file:
+        path: "/etc/init.d/{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+        state: absent
+      become: yes
+
+    - name: 'System Daemon Reload'
+      systemd:
+        daemon_reload: yes
+      become: yes
+
+    - name: "Deleting Base Directory - {{ mysql_root_path }}/base/{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+      file:
+        path: "{{ mysql_root_path }}/base/{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+        state: absent
+      become: yes
+
+    - name: "Deleting Data Directory - {{ mysql_root_path }}/data/{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+      file:
+        path: "{{ mysql_root_path }}/data/{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+        state: absent
+      become: yes
+
+    - name: 'Delete - Logged DB details'
+      shell: "mysql -u {{ provdb_user }} -h {{ provdb_ip }} -P {{ provdb_port }} -p'{{ provdb_pwd }}' -D {{ provdb_name }} -e \"DELETE FROM LOG_DB_DETAIL WHERE CUSTOMER='{{ customer_name }}' AND LOB='{{ lob_name }}' AND ENVIRONMENT='{{ prov_env }}' AND DB_TYPE='{{ inventory_hostname_short }}';\""
+      delegate_to: localhost
+...

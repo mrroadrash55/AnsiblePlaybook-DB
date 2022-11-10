@@ -1,0 +1,4 @@
+[DB_Server]
+Transaction_Master ansible_host=10.100.16.51
+Transaction_Slave ansible_host=10.100.16.53
+Interface_Master ansible_host=10.100.16.23

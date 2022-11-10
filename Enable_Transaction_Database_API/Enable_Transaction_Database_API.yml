@@ -1,0 +1,12 @@
+---
+-
+  hosts: "{{ target_host }}"
+  name: "Enabling or Starting Database instance in {{ target_host }}"
+  tasks:
+    - name: "Starting Service - {{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+      systemd:
+        name: "{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+        state: started
+        enabled: yes
+      become: yes
+...

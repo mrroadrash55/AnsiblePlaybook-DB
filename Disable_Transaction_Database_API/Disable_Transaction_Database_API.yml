@@ -1,0 +1,12 @@
+---
+-
+  hosts: "{{ target_host }}"
+  name: "Disabling or Stopping Database instance in {{ target_host }}"
+  tasks:
+    - name: "Stopping Service - {{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+      systemd:
+        name: "{{ customer_name }}_{{ lob_name }}_{{ port_num }}"
+        state: stopped
+        enabled: no
+      become: yes
+...
